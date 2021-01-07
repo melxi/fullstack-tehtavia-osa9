@@ -8,7 +8,21 @@ interface Result {
   average: number;
 }
 
-const calculateExercises = (hours: Array<number>, target: number): Result => {
+interface Exercises {
+    target: number;
+    hours: Array<number>;
+}
+
+const parseArguments = (args: Array<string>): Exercises => {
+    if (args.length < 2) throw new Error('Not enough arguments');
+
+    return {
+        target: Number(args[2]),
+        hours: args.map(Number).slice(3)
+    }
+}
+
+const calculateExercises = (target: number, hours: Array<number>): Result => {
     const periodLength: number = hours.length;
     let trainingDays: number = 0;
     let success: boolean = false;
@@ -28,15 +42,15 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
     average = sum / hours.length;
     success = average >= target ? true : false;
 
-    if (average < 1) {
-        rating = 1;
-        ratingDescription = 'You haven\'t done nothing';
-    } else if (average < 2) {
+    if (average >= target) {
+        rating = 3;
+        ratingDescription = 'You have done great';
+    } else if (average < target) {
         rating = 2;
         ratingDescription = 'Not too bad but could be better';
     } else {
-        rating = 3;
-        ratingDescription = 'You have done great';
+        rating = 1;
+        ratingDescription = 'You haven\'t done anything';
     }
 
     return {
@@ -50,4 +64,6 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
     }
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const { target, hours } = parseArguments(process.argv);
+
+console.log(calculateExercises(target, hours));

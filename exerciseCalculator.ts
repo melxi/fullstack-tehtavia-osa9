@@ -22,7 +22,7 @@ const parseArguments = (args: Array<string>): Exercises => {
     };
 };
 
-const calculateExercises = (target: number, hours: Array<number>): Result => {
+export const calculateExercises = (target: number, hours: Array<number>): Result => {
     const periodLength: number = hours.length;
     let trainingDays = 0;
     let success = false;

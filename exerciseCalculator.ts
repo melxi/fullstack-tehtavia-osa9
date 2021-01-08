@@ -19,17 +19,17 @@ const parseArguments = (args: Array<string>): Exercises => {
     return {
         target: Number(args[2]),
         hours: args.map(Number).slice(3)
-    }
-}
+    };
+};
 
 const calculateExercises = (target: number, hours: Array<number>): Result => {
     const periodLength: number = hours.length;
-    let trainingDays: number = 0;
-    let success: boolean = false;
-    let rating: number = 1;
+    let trainingDays = 0;
+    let success = false;
+    let rating = 1;
     let ratingDescription: string;
-    let average: number = 0;
-    let sum: number = 0;
+    let average = 0;
+    let sum = 0;
 
     for (let i = 0; i < hours.length; i++) {
         if (hours[i] != 0) {
@@ -61,7 +61,7 @@ const calculateExercises = (target: number, hours: Array<number>): Result => {
         ratingDescription,
         target,
         average
-    }
+    };
 };
 
 const { target, hours } = parseArguments(process.argv);

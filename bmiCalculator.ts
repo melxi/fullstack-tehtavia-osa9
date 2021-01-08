@@ -24,8 +24,6 @@ export const calculateBmi = (height: number, weight: number): string => {
       return "Severely underweight";
     case bmi < 18.5:
       return "Underweight";
-    case bmi < 18.5:
-      return "Underweight";
     case bmi < 25:
       return "Normal (healthy weight)";
     case bmi < 30:
@@ -43,5 +41,9 @@ try {
   const { height, weight } = parseArguments(process.argv);
   calculateBmi(height, weight);
 } catch (error) {
-  console.log("Error, something bad happened, messaage: ", error.message);
+    if (error instanceof Error) {
+        console.log("Error, something bad happened, messaage: ", error.message);
+    } else {
+        throw error;
+    }
 }

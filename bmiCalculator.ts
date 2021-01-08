@@ -1,4 +1,20 @@
-const calculateBmi = (height: number, weight: number): string => {
+interface Measurements {
+  height: number;
+  weight: number;
+}
+
+const parseArguments = (args: Array<string>): Measurements => {
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      height: Number(args[2]),
+      weight: Number(args[3]),
+    };
+  } else {
+    throw new Error("Provided values were not numbers!");
+  }
+};
+
+export const calculateBmi = (height: number, weight: number): string => {
   const bmi: number = weight / Math.pow(height / 100, 2);
 
   switch (true) {
@@ -23,7 +39,9 @@ const calculateBmi = (height: number, weight: number): string => {
   }
 };
 
-const height: number = Number(process.argv[2]);
-const weight: number = Number(process.argv[3]);
-
-console.log(calculateBmi(height, weight));
+try {
+  const { height, weight } = parseArguments(process.argv);
+  calculateBmi(height, weight);
+} catch (error) {
+  console.log("Error, something bad happened, messaage: ", error.message);
+}

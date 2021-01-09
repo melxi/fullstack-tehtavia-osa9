@@ -33,7 +33,7 @@ app.post("/exercises", (req, res) => {
 
   if (
     !isNaN(Number(target)) &&
-    dailyExercises.every((num: number) => !isNaN(num))
+    dailyExercises.every((num: any) => !isNaN(num))
   ) {
     const response = calculateExercises(Number(target), dailyExercises);
     res.json(response);

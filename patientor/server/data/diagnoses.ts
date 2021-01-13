@@ -78,6 +78,6 @@ const diagnosisEntires: Array<DiagnosisEntry> = [
     "name": "Other proliferative retinopathy",
     "latin": "Alia retinopathia proliferativa"
   }
-]
+];
 
 export default diagnosisEntires;

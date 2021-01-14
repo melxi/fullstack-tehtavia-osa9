@@ -13,4 +13,6 @@ export interface PatientEntry {
     occupation: string;
 }
 
+export type NewPatientEntry = Omit<PatientEntry, 'id'>;
+
 export type NonSSNPatientEntry = Omit<PatientEntry, 'comment'>;

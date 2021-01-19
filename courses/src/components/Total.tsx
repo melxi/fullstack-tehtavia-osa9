@@ -4,7 +4,7 @@ interface TotalProps {
     exerciseCount: number;
 }
 
-const Total: React.FC<{courseParts: TotalProps[]}> = ({ courseParts }) => {
+const Total: React.FC<{ courseParts: TotalProps[] }> = ({ courseParts }) => {
     return <>
         <p>
             Number of exercises{" "}

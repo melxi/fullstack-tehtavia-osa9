@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Gender, NewPatientEntry } from "./types";
+import { Gender, NewPatient } from "./types";
 
 const isString = (text: any): text is string => {
   return typeof text === "string" || text instanceof String;
@@ -52,7 +52,7 @@ const parseSSN = (ssn: any): string => {
   return ssn;
 };
 
-const toNewPatientEntry = (object: any): NewPatientEntry => {
+const toNewPatient = (object: any): NewPatient => {
   return {
     name: parseString("name", object.name),
     dateOfBirth: parseDate(object.dateOfBirth),
@@ -63,4 +63,4 @@ const toNewPatientEntry = (object: any): NewPatientEntry => {
   };
 };
 
-export default toNewPatientEntry;
+export default toNewPatient;

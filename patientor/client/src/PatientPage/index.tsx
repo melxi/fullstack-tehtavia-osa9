@@ -16,7 +16,7 @@ const genderIconProps = {
 }
 
 const PatientPage: React.FC = () => {
-    const [{ patients }, dispatch] = useStateValue();
+    const [{ patients, diagnoses }, dispatch] = useStateValue();
     const { id } = useParams<{ id: string }>();
     const patient = patients[id];
 
@@ -64,7 +64,7 @@ const PatientPage: React.FC = () => {
                         <List bulleted>
                             {entry.diagnosisCodes && entry.diagnosisCodes.map(code => (
                                 <List.Item key={code}>
-                                    {code}
+                                    {code} {diagnoses[code] && diagnoses[code].name}
                                 </List.Item>
                             ))}
                         </List>

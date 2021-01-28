@@ -52,6 +52,25 @@ const PatientPage: React.FC = () => {
                 <List.Item>ssn: {patient.ssn}</List.Item>
                 <List.Item>occupation: {patient.occupation}</List.Item>
             </List>
+            <Header as='h3'>
+                entries
+            </Header>
+            <List>
+                {patient.entries.map(entry => (
+                    <div key={entry.id}>
+                        <List.Item>
+                            {entry.date} <em>{entry.description}</em>
+                        </List.Item>
+                        <List bulleted>
+                            {entry.diagnosisCodes && entry.diagnosisCodes.map(code => (
+                                <List.Item key={code}>
+                                    {code}
+                                </List.Item>
+                            ))}
+                        </List>
+                    </div>
+                ))}
+            </List>
         </div>
     )
 }

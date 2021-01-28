@@ -10,6 +10,16 @@ export interface Diagnosis {
   latin?: string;
 }
 
+export interface Patient {
+  id: string;
+  name: string;
+  ssn?: string;
+  occupation: string;
+  gender: Gender;
+  dateOfBirth: string;
+  entries: Entry[];
+}
+
 interface BaseEntry {
   id: string;
   description: string;
@@ -55,16 +65,6 @@ export type Entry =
   | HospitalEntry
   | OccupationalHealthcareEntry
   | HealthCheckEntry;
-
-export interface Patient {
-  id: string;
-  name: string;
-  ssn?: string;
-  occupation: string;
-  gender: Gender;
-  dateOfBirth: string;
-  entries: Entry[];
-}
 
 export type PublicPatient = Omit<Patient, "ssn" | "entries">;
 export type NewPatient = Omit<Patient, "id">;

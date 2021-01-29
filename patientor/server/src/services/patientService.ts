@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
-import patients from '../../data/patients';
-import { NonSSNPatient, Patient, NewPatient } from "../types";
+import patients from "../../data/patients";
+import { Patient, NonSSNPatient, NewPatient, NewEntry } from "../types";
 
 const getPatients = (): Array<Patient> => {
   return patients;
 };
 
 const getPatient = (id: string): Patient | undefined => {
-    return patients.find((patient) => patient.id === id);
+  return patients.find((patient) => patient.id === id);
 };
 
 const getNonSSNPatient = (): NonSSNPatient[] => {
@@ -17,18 +17,33 @@ const getNonSSNPatient = (): NonSSNPatient[] => {
     dateOfBirth,
     gender,
     occupation,
-    entries: []
+    entries: [],
   }));
 };
 
-const addPatient =  (entry: NewPatient ): Patient => {
-  const newPatientEntry = {
+const addPatient = (patient: NewPatient): Patient => {
+  const newPatient = {
     id: uuidv4(),
-    ...entry
+    ...patient,
   };
 
-  patients.push(newPatientEntry);
-  return newPatientEntry;
+  patients.push(newPatient);
+  return newPatient;
+};
+
+const addEntry = (patient: Patient, entry: NewEntry): Patient => {
+  const newEntry = {
+      id: uuidv4(),
+      ...entry
+  };
+
+  const updatedPatient = {
+      ...patient,
+      entries: patient.entries.concat(newEntry)
+  };
+
+  patients.map(patient => patient.id === updatedPatient.id ? updatedPatient : patient);
+  return updatedPatient;
 };
 
 export default {
@@ -36,4 +51,5 @@ export default {
   getPatients,
   getNonSSNPatient,
   addPatient,
+  addEntry,
 };

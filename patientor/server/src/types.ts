@@ -26,10 +26,17 @@ interface BaseEntry {
   date: string;
   specialist: string;
   diagnosisCodes?: Array<Diagnosis["code"]>;
+  type: EntryType;
+}
+
+export enum EntryType {
+  Hospital = "Hospital",
+  OccupationalHealthcare = "OccupationalHealthcare",
+  HealthCheck = "HealthCheck",
 }
 
 interface HospitalEntry extends BaseEntry {
-  type: "Hospital";
+  type: EntryType.Hospital;
   discharge: Discharge;
 }
 
@@ -38,8 +45,8 @@ export interface SickLeave {
   endDate: string;
 }
 
-interface OccupationalHealthcareEntry extends BaseEntry {
-  type: "OccupationalHealthcare";
+interface OccupationalHealthCareEntry extends BaseEntry {
+  type: EntryType.OccupationalHealthcare;
   employerName: string;
   sickLeave?: SickLeave;
 }
@@ -50,7 +57,7 @@ export interface Discharge {
 }
 
 interface HealthCheckEntry extends BaseEntry {
-  type: "HealthCheck";
+  type: EntryType.HealthCheck;
   healthCheckRating: HealthCheckRating;
 }
 
@@ -63,9 +70,16 @@ export enum HealthCheckRating {
 
 export type Entry =
   | HospitalEntry
-  | OccupationalHealthcareEntry
+  | OccupationalHealthCareEntry
   | HealthCheckEntry;
+
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? Omit<T, K>
+  : never;
 
 export type PublicPatient = Omit<Patient, "ssn" | "entries">;
 export type NewPatient = Omit<Patient, "id">;
 export type NonSSNPatient = Omit<Patient, "ssn">;
+export type NewBaseEntry = Omit<BaseEntry, "id">;
+export type NewEntry = DistributiveOmit<Entry, "id">;

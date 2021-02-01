@@ -1,7 +1,7 @@
-import React from 'react';
-import { List } from 'semantic-ui-react';
-import { useStateValue } from '../state';
-import { Diagnosis } from '../types';
+import React from "react";
+import { List } from "semantic-ui-react";
+import { useStateValue } from "../state";
+import { Diagnosis } from "../types";
 
 interface DiagnosesDetailsProps {
     diagnosisCodes: Array<Diagnosis["code"]>;

@@ -64,7 +64,7 @@ const parseSSN = (ssn: any): string => {
 
 const isDiagnosisCodes = (
   diagnosisCodes: any[]
-): diagnosisCodes is string[] => {
+): diagnosisCodes is string[] => {    
   return diagnosisCodes.every((code) => typeof code === "string");
 };
 
@@ -72,12 +72,12 @@ const parseDiagnosisCodes = (diagnosisCodes: any): Array<Diagnosis["code"]> => {
   if (
     !diagnosisCodes ||
     !Array.isArray(diagnosisCodes) ||
-    isDiagnosisCodes(diagnosisCodes)
+    !isDiagnosisCodes(diagnosisCodes)
   ) {
     throw new Error(`Incorrect or missing diagnosis codes`);
   }
 
-  return diagnosisCodes as Array<Diagnosis["code"]>;
+  return diagnosisCodes;
 };
 
 const isHealthCheckRating = (param: any): param is HealthCheckRating => {
@@ -122,11 +122,11 @@ const parseSickLeave = (object: any): SickLeave => {
 };
 
 const isDischarge = (param: any): param is Discharge => {
-  return Object.values(HealthCheckRating).includes(param);
+    return Object.keys(param).includes("date" && "criteria");
 };
 
 const parseDischarge = (object: any): Discharge => {
-  if (!object || isDischarge(object)) {
+  if (!object || !isDischarge(object)) {
     throw new Error(`Incorrert or missing discharge: ${object as string}`);
   }
 
@@ -144,7 +144,7 @@ const toNewBaseEntry = (object: any): NewBaseEntry => {
     type: parseEntryType(object.type),
   };
 
-  if (object.diagnosisCodes) {
+  if (object.diagnosisCodes.length > 0) {
     newBaseEntry.diagnosisCodes = parseDiagnosisCodes(object.diagnosisCodes);
   }
 

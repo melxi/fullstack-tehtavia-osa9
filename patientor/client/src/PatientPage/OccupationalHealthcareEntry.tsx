@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
-import { OccupationalHealthcareEntry as OccupationalHealthcare } from '../types';
-import DiagnosisList from './DiagnosisList';
+import React from "react";
+import { Card, Icon } from "semantic-ui-react";
+import { OccupationalHealthcareEntry as OccupationalHealthcare } from "../types";
+import DiagnosisList from "./DiagnosisList";
 
 const OccupationalHealthcareEntry: React.FC<{ entry: OccupationalHealthcare }> = ({ entry }) => {
     return (

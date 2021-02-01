@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
-import { HospitalEntry as Hospital } from '../types';
-import DiagnosisList from './DiagnosisList';
+import React from "react";
+import { Card, Icon } from "semantic-ui-react";
+import { HospitalEntry as Hospital } from "../types";
+import DiagnosisList from "./DiagnosisList";
 
 const HospitalEntry: React.FC<{ entry: Hospital }> = ({ entry }) => {
     return (

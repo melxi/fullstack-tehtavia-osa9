@@ -4,6 +4,7 @@ import { Header } from "semantic-ui-react";
 
 import { EntryType } from "../types";
 import { TextField } from "../AddPatientModal/FormField";
+import { NumberField } from "./FormField";
 
 interface Props {
     entryType: EntryType;
@@ -53,6 +54,16 @@ export const EntryFormField: React.FC<Props> = ({ entryType }) => {
                         component={TextField}
                     />
                 </>
+            )
+        case "HealthCheck":
+            return (
+                <Field
+                    label="Healthcheck rating"
+                    name="healthCheckRating"
+                    component={NumberField}
+                    min={0}
+                    max={3}
+                />
             )
         default:
             return null;

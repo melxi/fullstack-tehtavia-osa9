@@ -64,7 +64,7 @@ const parseSSN = (ssn: any): string => {
 
 const isDiagnosisCodes = (
   diagnosisCodes: any[]
-): diagnosisCodes is string[] => {    
+): diagnosisCodes is string[] => {
   return diagnosisCodes.every((code) => typeof code === "string");
 };
 
@@ -85,17 +85,22 @@ const isHealthCheckRating = (param: any): param is HealthCheckRating => {
 };
 
 const parseHealthCheckRating = (healthCheckRating: any): HealthCheckRating => {
-  if (!healthCheckRating || !isHealthCheckRating(healthCheckRating)) {
+  if (
+    healthCheckRating === null ||
+    healthCheckRating === undefined ||
+    isNaN(healthCheckRating) ||
+    !isHealthCheckRating(healthCheckRating)
+  ) {
     throw new Error(
       `Incorrect or missing healthcheck rating: ${healthCheckRating as string}`
     );
   }
 
-  return healthCheckRating as HealthCheckRating;
+  return healthCheckRating;
 };
 
 const isEntryType = (param: any): param is EntryType => {
-    return Object.values(EntryType).includes(param);
+  return Object.values(EntryType).includes(param);
 };
 
 const parseEntryType = (entryType: any): EntryType => {
@@ -103,16 +108,18 @@ const parseEntryType = (entryType: any): EntryType => {
     throw new Error(`Incorrert or missing type: ${entryType as string}`);
   }
 
-  return entryType as EntryType;
+  return entryType;
 };
 
 const isSickLeave = (param: any): param is SickLeave => {
-    return Object.keys(param).includes("startDate" && "endDate");
+  return Object.keys(param).includes("startDate" && "endDate");
 };
 
 const parseSickLeave = (object: any): SickLeave => {
   if (!object || !isSickLeave(object)) {
-    throw new Error(`Incorrert or missing sickleave dates: ${object as string}`);
+    throw new Error(
+      `Incorrert or missing sickleave dates: ${object as string}`
+    );
   }
 
   return {
@@ -122,7 +129,7 @@ const parseSickLeave = (object: any): SickLeave => {
 };
 
 const isDischarge = (param: any): param is Discharge => {
-    return Object.keys(param).includes("date" && "criteria");
+  return Object.keys(param).includes("date" && "criteria");
 };
 
 const parseDischarge = (object: any): Discharge => {

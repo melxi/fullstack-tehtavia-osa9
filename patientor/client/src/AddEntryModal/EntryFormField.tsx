@@ -30,6 +30,30 @@ export const EntryFormField: React.FC<Props> = ({ entryType }) => {
                     />
                 </>
             )
+        case "OccupationalHealthcare":
+            return (
+                <>
+                    <Field
+                        label="Employer name"
+                        placeholder="Employer name"
+                        name="employerName"
+                        component={TextField}
+                    />
+                    <Header>Sickleave</Header>
+                    <Field
+                        label="Start date"
+                        placeholder="YYYY-MM-DD"
+                        name="sickLeave.startDate"
+                        component={TextField}
+                    />
+                    <Field
+                        label="End date"
+                        placeholder="YYYY-MM-DD"
+                        name="sickLeave.endDate"
+                        component={TextField}
+                    />
+                </>
+            )
         default:
             return null;
     }

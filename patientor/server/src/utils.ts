@@ -85,7 +85,7 @@ const isHealthCheckRating = (param: any): param is HealthCheckRating => {
 };
 
 const parseHealthCheckRating = (healthCheckRating: any): HealthCheckRating => {
-  if (!healthCheckRating || isHealthCheckRating(healthCheckRating)) {
+  if (!healthCheckRating || !isHealthCheckRating(healthCheckRating)) {
     throw new Error(
       `Incorrect or missing healthcheck rating: ${healthCheckRating as string}`
     );
@@ -95,11 +95,11 @@ const parseHealthCheckRating = (healthCheckRating: any): HealthCheckRating => {
 };
 
 const isEntryType = (param: any): param is EntryType => {
-  return Object.values(HealthCheckRating).includes(param);
+    return Object.values(EntryType).includes(param);
 };
 
 const parseEntryType = (entryType: any): EntryType => {
-  if (!entryType || isEntryType(entryType)) {
+  if (!entryType || !isString(entryType) || !isEntryType(entryType)) {
     throw new Error(`Incorrert or missing type: ${entryType as string}`);
   }
 
@@ -107,12 +107,12 @@ const parseEntryType = (entryType: any): EntryType => {
 };
 
 const isSickLeave = (param: any): param is SickLeave => {
-  return Object.values(HealthCheckRating).includes(param);
+    return Object.keys(param).includes("startDate" && "endDate");
 };
 
 const parseSickLeave = (object: any): SickLeave => {
-  if (!object || isSickLeave(object)) {
-    throw new Error(`Incorrert or missing sickleave: ${object as string}`);
+  if (!object || !isSickLeave(object)) {
+    throw new Error(`Incorrert or missing sickleave dates: ${object as string}`);
   }
 
   return {
@@ -185,7 +185,7 @@ export const toNewEntry = (object: any): NewEntry => {
         employerName: parseString("employer name", object.employerName),
       };
 
-      if (object.SickLeave) {
+      if (object.sickLeave) {
         newEntry.sickLeave = parseSickLeave(object.sickLeave);
       }
 

@@ -33,16 +33,21 @@ const addPatient = (patient: NewPatient): Patient => {
 
 const addEntry = (patient: Patient, entry: NewEntry): Patient => {
   const newEntry = {
-      id: uuidv4(),
-      ...entry
+    id: uuidv4(),
+    ...entry,
   };
 
   const updatedPatient = {
-      ...patient,
-      entries: patient.entries.concat(newEntry)
+    ...patient,
+    entries: patient.entries.concat(newEntry),
   };
 
-  patients.map(patient => patient.id === updatedPatient.id ? updatedPatient : patient);
+  patients.forEach((patient: Patient, index: number) => {
+    if (patient.id === updatedPatient.id) {
+      patients[index] = updatedPatient;
+    }
+  });
+
   return updatedPatient;
 };
 

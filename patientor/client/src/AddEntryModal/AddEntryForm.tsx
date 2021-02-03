@@ -46,6 +46,23 @@ const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
                 diagnosisCodes: []
             }}
             onSubmit={onSubmit}
+            validate={values => {
+                const requiredError = "Field is required";
+                const errors: { [field: string]: string } = {};
+                if (!values.type) {
+                    errors.type = requiredError;
+                }
+                if (!values.description) {
+                    errors.description = requiredError;
+                }
+                if (!values.date) {
+                    errors.date = requiredError;
+                }
+                if (!values.specialist) {
+                    errors.specialist = requiredError;
+                }
+                return errors;
+            }}
         >
             {({ isValid, dirty, setFieldValue, setFieldTouched }) => {
                 return (
